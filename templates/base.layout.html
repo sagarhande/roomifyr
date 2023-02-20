@@ -15,7 +15,12 @@
 
         {{end}}
     </head>
-    <body>
+<body>
+            
+    {{block "navbar" .}}
+
+    {{end}}
+
 
     {{block "content" .}}
 
@@ -26,6 +31,6 @@
 
     {{end}}
 
-    </body>
-    </html>
+</body>
+</html>
 {{end}}
