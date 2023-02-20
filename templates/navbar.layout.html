@@ -1,0 +1,80 @@
+{{template "base" .}}
+
+{{define "navbar"}}
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Roomifyr</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="/rooms/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Rooms
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/rooms/generals-quarters">General's Quarters</a></li>
+              <li><a class="dropdown-item" href="/rooms/majors-suite">Major's Suite</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reservation">Book Now</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br>
+<br>
+
+
+{{end}}
+
+{{define "css"}}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+{{end}}
+
+{{define "footer"}}
+<!-- Footer -->
+<!-- Remove the container if you want to extend the Footer to full width. -->
+  <footer class="bg-dark text-center text-white fixed-bottom" >
+  <!-- Grid container -->
+  <div class="container p-2 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-1">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-facebook-f fa-1x"></i></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-twitter fa-1x"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-google fa-1x"></i></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button"><i class="fab fa-instagram fa-1x"></i></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-1" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Copyright Roomifyr
+  </div>
+  <!-- Copyright -->
+</footer>
+  <!-- End of .container -->
+<!-- End Footer -->
+{{end}}

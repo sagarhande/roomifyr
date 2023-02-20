@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+	"time"
+
 	"github.com/alexedwards/scs/v2"
 	"github.com/sagarhande/roomifyr/pkg/config"
 	"github.com/sagarhande/roomifyr/pkg/handlers"
 	"github.com/sagarhande/roomifyr/pkg/render"
-	"log"
-	"net/http"
-	"time"
 )
 
 const portNumber = ":8080"
