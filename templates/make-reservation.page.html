@@ -1,0 +1,53 @@
+{{template "base" .}}
+
+{{define "content"}}
+<br>
+<br>
+  <!-- Main content -->   
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <header class="mb-4"><h4 class="card-title">Make Reservation</h4></header>
+
+                <form action="/" method="post" novalidate class="needs-validation">
+                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                    <div class="form-row">
+                        <div class="form-control col-md-6">
+                            <label for="first_name">First name</label>
+                            <input type="text" name="first_name" id="first_name" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-control col-md-6">
+                            <label for="last_name">Last name</label>
+                            <input type="text" name="last_name" id="last_name" required>
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+
+
+                    <div class="form-row">
+                        <div class="form-control col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-control col-md-6">
+                          <label for="phone">Phone number </label>
+                          <input type="text" name="phone" id="phone" required>
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row.// -->
+                    <hr>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-block"> Reserve </button>
+                    </div> <!-- form-group// -->   
+    
+                </form>
+        </div>
+    </div>
+
+</div>
+  <!--END-->
+
+{{end}}
+
+{{define "js"}}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+{{end}}
