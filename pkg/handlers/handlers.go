@@ -82,3 +82,7 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 	render.RenderTemplate(w, "contact.page.html", &models.TemplateData{})
 }
+
+func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "search-availability.page.html", &models.TemplateData{})
+}
