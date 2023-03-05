@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/sagarhande/roomifyr/pkg/config"
-	"github.com/sagarhande/roomifyr/pkg/handlers"
-	"github.com/sagarhande/roomifyr/pkg/render"
+	"github.com/sagarhande/roomifyr/internal/config"
+	"github.com/sagarhande/roomifyr/internal/handlers"
+	"github.com/sagarhande/roomifyr/internal/render"
 )
 
 const portNumber = ":8080"

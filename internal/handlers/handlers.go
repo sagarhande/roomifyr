@@ -1,13 +1,15 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/sagarhande/roomifyr/pkg/config"
-	"github.com/sagarhande/roomifyr/pkg/models"
-	"github.com/sagarhande/roomifyr/pkg/render"
+	"github.com/sagarhande/roomifyr/internal/config"
+	"github.com/sagarhande/roomifyr/internal/models"
+	"github.com/sagarhande/roomifyr/internal/render"
 )
 
 // Repo the repository used by the handlers
@@ -35,7 +37,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	remoteIP := r.RemoteAddr
 	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
 
-	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "home.page.html", &models.TemplateData{})
 }
 
 // About is the handler for the about page
@@ -48,7 +50,7 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap["remote_ip"] = remoteIP
 
 	// send data to the template
-	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -61,28 +63,53 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 	switch roomType {
 	case "generals-quarters":
 		fmt.Println("rendering.. generals-quarters.page.html")
-		render.RenderTemplate(w, "generals-quarters.page.html", &models.TemplateData{})
+		render.RenderTemplate(w, r, "generals-quarters.page.html", &models.TemplateData{})
 	case "majors-suite":
 		fmt.Println("rendering.. majors-suite.page.html")
-		render.RenderTemplate(w, "majors-suite.page.html", &models.TemplateData{})
+		render.RenderTemplate(w, r, "majors-suite.page.html", &models.TemplateData{})
 	default:
 		fmt.Println("rendering.. rooms.page.html")
-		render.RenderTemplate(w, "rooms.page.html", &models.TemplateData{})
+		render.RenderTemplate(w, r, "rooms.page.html", &models.TemplateData{})
 	}
 }
 
 // Reservation is the handler for the reservation
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "reservation.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{})
 }
 
 // Contact is the handler for the contact
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "contact.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "contact.page.html", &models.TemplateData{})
 }
 
 func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "search-availability.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "search-availability.page.html", &models.TemplateData{})
+}
+
+func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+	w.Write([]byte(fmt.Sprintf("Start Date is %s and End date is %s", start, end)))
+}
+
+// JSON response
+type jsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse{
+		OK:      true,
+		Message: "Available",
+	}
+	out, err := json.MarshalIndent(resp, "", "     ")
+	if err != nil {
+		log.Println(err)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }

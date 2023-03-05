@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/sagarhande/roomifyr/pkg/config"
-	"github.com/sagarhande/roomifyr/pkg/handlers"
+	"github.com/sagarhande/roomifyr/internal/config"
+	"github.com/sagarhande/roomifyr/internal/handlers"
 )
 
 func routes(app *config.AppConfig) http.Handler {
@@ -20,9 +20,12 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/about", handlers.Repo.About)
 
 	mux.Get("/reservation", handlers.Repo.Reservation)
-	mux.Get("/search-availability", handlers.Repo.SearchAvailability)
 	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Get("/rooms/{roomType}", handlers.Repo.Rooms)
+
+	mux.Get("/search-availability", handlers.Repo.SearchAvailability)
+	mux.Post("/search-availability", handlers.Repo.Availability)
+	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
