@@ -7,42 +7,50 @@
   <div class="container">
     <div class="row">
         <div class="col">
-            <header class="mb-4"><h4 class="card-title">Make Reservation</h4></header>
+            <h1 class="mt-3">Make Reservation</h1>
 
-                <form action="/" method="post" novalidate class="needs-validation">
-                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-                    <div class="form-row">
-                        <div class="form-control col-md-6">
-                            <label for="first_name">First name</label>
-                            <input type="text" name="first_name" id="first_name" required>
-                        </div> <!-- form-group end.// -->
-                        <div class="form-control col-md-6">
-                            <label for="last_name">Last name</label>
-                            <input type="text" name="last_name" id="last_name" required>
-                        </div> <!-- form-group end.// -->
-                    </div> <!-- form-row end.// -->
+            <form method="post" action="" class="needs-validation" novalidate>
+
+                <div class="form-group mt-3">
+                    <label for="first_name">First Name:</label>
+                    <input class="form-control"
+                           id="first_name" autocomplete="off" type='text'
+                           name='first_name' value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input class="form-control"
+                           id="last_name" autocomplete="off" type='text'
+                           name='last_name' value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" id="email"
+                           autocomplete="off" type='email'
+                           name='email' value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input class="form-control" id="phone"
+                           autocomplete="off" type='email'
+                           name='phone' value="" required>
+                </div>
+
+                <hr>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary" value="Make Reservation">
+                </div>
+            </form>
 
 
-                    <div class="form-row">
-                        <div class="form-control col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" required>
-                        </div> <!-- form-group end.// -->
-                        <div class="form-control col-md-6">
-                          <label for="phone">Phone number </label>
-                          <input type="text" name="phone" id="phone" required>
-                        </div> <!-- form-group end.// -->
-                    </div> <!-- form-row.// -->
-                    <hr>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-block"> Reserve </button>
-                    </div> <!-- form-group// -->   
-    
-                </form>
         </div>
     </div>
 
 </div>
+<br>
   <!--END-->
 
 {{end}}
