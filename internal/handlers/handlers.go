@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/sagarhande/roomifyr/internal/config"
+	"github.com/sagarhande/roomifyr/internal/forms"
 	"github.com/sagarhande/roomifyr/internal/models"
 	"github.com/sagarhande/roomifyr/internal/render"
 )
@@ -76,7 +77,37 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 // Reservation is the handler for the reservation
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
+		Form: *forms.New(nil),
+	})
+}
+
+// PostReservation is the handler for the posting of reservation form
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	reservation := models.Reservation{
+		FirstName: r.Form.Get("first_name"),
+		LastName:  r.Form.Get("last_name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
+	}
+	form := forms.New(r.PostForm)
+
+	form.Has("first_name", r)
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
+			Form: *form,
+			Data: data,
+		})
+		return
+	}
 }
 
 // Contact is the handler for the contact
