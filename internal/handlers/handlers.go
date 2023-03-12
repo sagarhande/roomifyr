@@ -77,8 +77,13 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 // Reservation is the handler for the reservation
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
+
 	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
 		Form: *forms.New(nil),
+		Data: data,
 	})
 }
 
@@ -97,7 +102,10 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	}
 	form := forms.New(r.PostForm)
 
-	form.Has("first_name", r)
+	form.Required("first_name", "email")
+	form.MinLength("first_name", 5, r)
+	form.MinLength("last_name", 5, r)
+	form.ValidateEmail(r.Form.Get("email"))
 	if !form.Valid() {
 		data := make(map[string]interface{})
 		data["reservation"] = reservation
@@ -108,6 +116,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
 }
 
 // Contact is the handler for the contact
