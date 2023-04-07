@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/sagarhande/roomifyr/internal/config"
 	"github.com/sagarhande/roomifyr/internal/handlers"
+	"github.com/sagarhande/roomifyr/internal/models"
 	"github.com/sagarhande/roomifyr/internal/render"
 )
 
@@ -19,6 +21,29 @@ var session *scs.SessionManager
 
 // main is the main function
 func main() {
+
+	err := run()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Staring application on port ", portNumber)
+
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func run() error {
+	// What I'm going to put into session
+	gob.Register(models.Reservation{})
+
 	// change this to true when in production
 	app.InProduction = false
 
@@ -35,6 +60,7 @@ func main() {
 	if err != nil {
 		log.Println("Error", err)
 		log.Fatal("cannot create template cache")
+		return err
 	}
 
 	app.TemplateCache = tc
@@ -45,15 +71,6 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	fmt.Println(fmt.Sprintf("Staring application on port %s", portNumber))
+	return nil
 
-	srv := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(&app),
-	}
-
-	err = srv.ListenAndServe()
-	if err != nil {
-		log.Fatal(err)
-	}
 }
